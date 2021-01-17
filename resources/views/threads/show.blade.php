@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
@@ -14,11 +14,7 @@
                         {{ $thread->body }}
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-7">
-                @foreach($thread->replies as $reply)
+                @foreach($replies as $reply)
                     <br>
                     <div class="card">
                         <div class="card-header">
@@ -31,24 +27,34 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-        </div>
-        @auth()
-            <div class="row justify-content-center">
-                <div class="col-md-7">
+                <br>
+                {{ $replies->links("pagination::bootstrap-4") }}
+                @auth()
+                    <div class="col-md-10 offset-1">
+                        <br>
+                        <form method="post" action="{{ route('replies.store', $thread->id) }}">
+                            @csrf
+                            <div class="form-group">
+                                <textarea name="body" rows="5" class="form-control"
+                                          placeholder="Have something to say?"></textarea>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Post</button>
+                        </form>
+                    </div>
+                @else
                     <br>
-                    <form method="post" action="{{ route('replies.store', $thread->id) }}">
-                        @csrf
-                        <div class="form-group">
-                            <textarea name="body" rows="5" class="form-control" placeholder="Have something to say?"></textarea>
-                        </div>
-                        <button class="btn btn-primary" type="submit">Post</button>
-                    </form>
+                    <p class="text-center">Please <a href="{{ route('login') }}">Sign in</a> to participate in this
+                        thread</p>
+                @endauth
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        This thread was published {{ $thread->created_at->diffForHumans() }} by <a
+                            href="#">{{ $thread->user->name }}</a> and
+                        has {{ $thread->replies_count }} {{ Str::plural('comment', $thread->replies_count) }}.
+                    </div>
                 </div>
             </div>
-        @else
-            <br>
-            <p class="text-center">Please <a href="{{ route('login') }}">Sign in</a> to participate in this thread</p>
-        @endauth
-    </div>
+        </div>
 @endsection

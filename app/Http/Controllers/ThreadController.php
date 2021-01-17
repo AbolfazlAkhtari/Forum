@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\ThreadFilters;
 use App\Models\Channel;
 use App\Models\Thread;
 use App\Models\User;
@@ -23,19 +24,9 @@ class ThreadController extends Controller
      * @param Channel|null $channel
      * @return \Illuminate\Http\Response
      */
-    public function index(Channel $channel = null)
+    public function index(Channel $channel = null, ThreadFilters $filters)
     {
-
-        if ($channel != null) {
-            $threads = $channel->threads()->latest();
-        } else {
-            $threads = Thread::latest();
-        }
-        if ($username = request('by')) {
-            $user = User::where('name', $username)->firstOrFail();
-            $threads = $threads->where('user_id', $user->id);
-        }
-        $threads = $threads->get();
+        $threads = $this->getThreads($filters, $channel);
         return view('threads.index', compact('threads'));
     }
 
@@ -116,5 +107,20 @@ class ThreadController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param ThreadFilters $filters
+     * @param Channel|null $channel
+     * @return mixed
+     */
+    protected function getThreads(ThreadFilters $filters, ?Channel $channel)
+    {
+        $threads = Thread::latest()->filter($filters);
+        if ($channel != null) {
+            $threads = $threads->where('channel_id', $channel->id);
+        }
+        $threads = $threads->get();
+        return $threads;
     }
 }

@@ -27,6 +27,12 @@ class ThreadController extends Controller
     public function index(Channel $channel = null, ThreadFilters $filters)
     {
         $threads = $this->getThreads($filters, $channel);
+
+        // this is for phpunit
+        if (request()->wantsJson()) {
+            return $threads;
+        }
+
         return view('threads.index', compact('threads'));
     }
 

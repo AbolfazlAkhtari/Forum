@@ -19,6 +19,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        .level { display: flex; align-items: center }
+        .flex { flex: 1; }
+    </style>
 </head>
 
 <body>
@@ -43,13 +48,17 @@
                                 Browse
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-item"><a class="nav-link" href="{{ route('threads.index') }}">All
-                                        Threads</a></li>
-                                @if(auth()->check())
-                                <li class="dropdown-item"><a class="nav-link"
-                                        href="{{ route('threads.index') }}?by={{ auth()->user()->name }}">My Threads</a>
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{{ route('threads.index') }}">All Threads</a>
                                 </li>
+                                @if(auth()->check())
+                                    <li class="dropdown-item"><a class="nav-link"
+                                            href="{{ route('threads.index') }}?by={{ auth()->user()->name }}">My Threads</a>
+                                    </li>
                                 @endif
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{{ route('threads.index') }}?popular=1">Popular All Time</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('threads.create') }}">New Thread</a>

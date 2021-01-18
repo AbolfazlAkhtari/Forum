@@ -45,8 +45,8 @@ class ReadThreadsTest extends TestCase
     public function a_user_can_filter_threads_according_to_channel()
     {
         $channel = Channel::factory()->create();
-        $threadInChannel = Thread::factory()->create(['channel_id' => $channel->id, 'title' => '1111111111']);
-        $threadNotInChanel = Thread::factory()->create(['title' => '22222222222']);
+        $threadInChannel = create(Thread::class, ['channel_id' => $channel->id, 'title' => '1111111111']);
+        $threadNotInChanel = create(Thread::class, ['title' => '22222222222']);
 
         $this->get(route('threads.channel', $channel))
             ->assertSee($threadInChannel->title)
@@ -55,9 +55,9 @@ class ReadThreadsTest extends TestCase
 
     /** @test */
     public function a_user_can_filter_threads_by_any_username() {
-        $this->signIn($user = User::factory()->create(['name' => 'JohnDoe']));
-        $threadByJohn = Thread::factory()->create(['user_id' => $user]);
-        $threadNotByJohn = Thread::factory()->create();
+        $this->signIn($user = create(User::class, ['name' => 'JohnDoe']));
+        $threadByJohn = create(Thread::class, ['user_id' => $user]);
+        $threadNotByJohn = create(Thread::class);
 
         $this->get(route('threads.index').'?by=JohnDoe')
             ->assertSee($threadByJohn->title)

@@ -3,7 +3,7 @@
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FavortieController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ Route::get('/threads/{channel}', [ThreadController::class, 'index'])->name('thre
 Route::get('/threads/{channel}/{thread}', [ThreadController::class, 'show'])->name('threads.show');
 Route::post('/threads', [ThreadController::class, 'store'])->name('threads.store');
 Route::post('/threads/{thread}/replies', [ReplyController::class, 'store'])->name('replies.store');
-Route::post('/replies/{reply}/favorites', [FavortieController::class, 'store'])->name('replyFavorites.store');
+Route::post('/replies/{reply}/favorites', [FavoriteController::class, 'store'])->name('replyFavorites.store');
 
 /** provides an easy way to save fake data in database */
 Route::get('/seed', function (){

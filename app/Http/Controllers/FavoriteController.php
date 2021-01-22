@@ -6,7 +6,7 @@ use App\Models\Favorite;
 use App\Models\Reply;
 use Illuminate\Http\Request;
 
-class FavortieController extends Controller
+class FavoriteController extends Controller
 {
     /**
      * FavoriteController constructor.
@@ -24,5 +24,7 @@ class FavortieController extends Controller
         if (! $reply->favorites()->where('user_id', auth()->user()->id)->exists()) {
             $reply->favorites()->create(['user_id' => auth()->user()->id]);
         }
+
+        return back();
     }
 }

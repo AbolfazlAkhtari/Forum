@@ -17,10 +17,16 @@
                 @foreach($replies as $reply)
                     <br>
                     <div class="card">
-                        <div class="card-header">
-                            <a href="#">
-                                {{ $reply->user->name }}
-                            </a> said {{ $reply->created_at->diffForHumans() }}
+                        <div class="card-header level">
+                            <div class="flex">
+                                <a href="#">
+                                    {{ $reply->user->name }}
+                                </a> said {{ $reply->created_at->diffForHumans() }}
+                            </div>
+                            <form action="{{ route('replyFavorites.store', $reply) }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-secondary {{ $reply->isFavorited() ? 'disabled' : '' }}">{{ $reply->favorites->count() }} {{ Str::plural('favorites', $reply->favorites->count()) }}</button>
+                            </form>
                         </div>
                         <div class="card-body">
                             {{ $reply->body }}

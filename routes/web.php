@@ -3,6 +3,7 @@
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FavortieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +15,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+
 Route::get('/threads', [ThreadController::class, 'index'])->name('threads.index');
 Route::get('/threads/create', [ThreadController::class, 'create'])->name('threads.create');
 Route::get('/threads/{channel}', [ThreadController::class, 'index'])->name('threads.channel');
 Route::get('/threads/{channel}/{thread}', [ThreadController::class, 'show'])->name('threads.show');
 Route::post('/threads', [ThreadController::class, 'store'])->name('threads.store');
-
 Route::post('/threads/{thread}/replies', [ReplyController::class, 'store'])->name('replies.store');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::post('/replies/{reply}/favorites', [FavortieController::class, 'store'])->name('replyFavorites.store');
 
 /** provides an easy way to save fake data in database */
 Route::get('/seed', function (){
@@ -35,11 +33,3 @@ Route::get('/seed', function (){
     }
     return response('Database Seeded!', 200);
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

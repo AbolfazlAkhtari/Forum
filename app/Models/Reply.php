@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\favoritable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    use HasFactory;
+    use HasFactory, favoritable;
 
     protected $guarded = [];
+
+    protected $with = ['user', 'favorites'];
 
     public function user()
     {
@@ -21,13 +24,4 @@ class Reply extends Model
         return $this->belongsTo(Reply::class);
     }
 
-    public function favorites()
-    {
-        return $this->morphMany(Favorite::class, 'favorited');
-    }
-
-    public function isFavorited()
-    {
-        return $this->favorites()->where('user_id', auth()->user()->id)->exists();
-    }
 }

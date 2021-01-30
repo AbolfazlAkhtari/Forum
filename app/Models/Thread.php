@@ -11,6 +11,8 @@ class Thread extends Model
 
     protected $guarded = [];
 
+    protected $with = ['user', 'channel'];
+
     protected static function boot()
     {
         parent::boot();
@@ -22,9 +24,7 @@ class Thread extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class)
-            ->withCount('favorites')
-            ->with('user');
+        return $this->hasMany(Reply::class);
     }
 
     public function user()

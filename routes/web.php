@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,9 @@ Route::get('/threads/{channel}/{thread}', [ThreadController::class, 'show'])->na
 Route::post('/threads', [ThreadController::class, 'store'])->name('threads.store');
 Route::post('/threads/{thread}/replies', [ReplyController::class, 'store'])->name('replies.store');
 Route::post('/replies/{reply}/favorites', [FavoriteController::class, 'store'])->name('replyFavorites.store');
+
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('userProfile.show');
+
 
 /** provides an easy way to save fake data in database */
 Route::get('/seed', function (){

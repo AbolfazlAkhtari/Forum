@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <a href="#">
+                        <a href={{ route('userProfile.show', $thread->user->name) }}>
                             {{ $thread->user->name }}
                         </a> posted {{ $thread->title }}
                     </div>
@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-header level">
                             <div class="flex">
-                                <a href="#">
+                                <a href="{{ route('userProfile.show', $reply->user->name) }}">
                                     {{ $reply->user->name }}
                                 </a> said {{ $reply->created_at->diffForHumans() }}
                             </div>

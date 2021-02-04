@@ -11,11 +11,13 @@
                                 {{ $thread->user->name }}
                             </a> posted {{ $thread->title }}
                         </div>
-                        <form action="{{ route('threads.destroy', $thread) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-link">Delete Thread</button>
-                        </form>
+                        @can('update', $thread)
+                            <form action="{{ route('threads.destroy', $thread) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-link">Delete Thread</button>
+                            </form>
+                        @endcan
                     </div>
                     <div class="card-body">
                         {{ $thread->body }}

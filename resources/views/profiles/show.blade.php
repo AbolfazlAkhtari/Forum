@@ -9,7 +9,7 @@
             @foreach($threads as $thread)
                 <div class="card">
                     <div class="card-header level">
-                        <a href="#" class="flex">
+                        <a href="{{ route('threads.show', [$thread->channel, $thread]) }}" class="flex">
                             {{ $thread->title }}
                         </a>
                         <span>

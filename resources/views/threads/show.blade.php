@@ -5,10 +5,17 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">
-                        <a href={{ route('userProfile.show', $thread->user->name) }}>
-                            {{ $thread->user->name }}
-                        </a> posted {{ $thread->title }}
+                    <div class="card-header level">
+                        <div class="flex">
+                            <a href={{ route('userProfile.show', $thread->user->name) }}>
+                                {{ $thread->user->name }}
+                            </a> posted {{ $thread->title }}
+                        </div>
+                        <form action="{{ route('threads.destroy', $thread) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-link">Delete Thread</button>
+                        </form>
                     </div>
                     <div class="card-body">
                         {{ $thread->body }}

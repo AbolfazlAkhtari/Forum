@@ -73,6 +73,7 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Channel $channel
      * @param Thread $thread
      * @return \Illuminate\Http\Response
      */
@@ -111,9 +112,11 @@ class ThreadController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Thread $thread)
     {
-        //
+        $thread->delete();
+
+        return redirect()->route('threads.index');
     }
 
     /**

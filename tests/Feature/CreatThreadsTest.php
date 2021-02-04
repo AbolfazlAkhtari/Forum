@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Channel;
+use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -70,5 +71,33 @@ class CreatThreadsTest extends TestCase
         $this->publishThread(['channel_id' => 999])
             ->assertSessionHasErrors('channel_id');
         //999 is an example of a channel which doesn't exist
+    }
+
+    /** @test */
+    public function a_thread_can_be_deleted()
+    {
+        $user = create(User::class);
+        $this->signIn($user);
+        $thread = create(Thread::class, ['user_id' => $user->id]);
+        $reply = create(Reply::class, ['thread_id' => $thread->id]);
+
+        $this->delete(route('threads.destroy', $thread));
+
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+    }
+
+    /** @test */
+    public function guests_can_not_delete_threads()
+    {
+        $thread = create(Thread::class);
+
+        $this->delete(route('threads.destroy', $thread))->assertRedirect(route('login'));
+    }
+
+    /** @test */
+    public function threads_may_only_be_deleted_by_those_who_have_permission()
+    {
+        // TODO:
     }
 }

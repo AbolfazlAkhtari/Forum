@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Models\Activity;
 use App\Models\Reply;
 use App\Models\Thread;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -37,5 +38,19 @@ class ActivityTest extends TestCase
         $reply = create(Reply::class);
 
         $this->assertEquals(2, Activity::count());
+    }
+
+    /** @test */
+    public function it_belongs_to_a_user()
+    {
+        $user = create(User::class);
+        $activity = Activity::create([
+            'user_id' => $user->id,
+            'subject_type' => 'App\Models\Thread',
+            'subject_id' => 1,
+            'type' => 'thread_created',
+        ]);
+
+        $this->assertInstanceOf('App\Models\User', $activity->user);
     }
 }

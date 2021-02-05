@@ -22,7 +22,7 @@ class Reply extends Model
 
     public function thread()
     {
-        return $this->belongsTo(Reply::class);
+        return $this->belongsTo(Thread::class);
     }
 
 }

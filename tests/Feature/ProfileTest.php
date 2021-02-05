@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Activity;
 use App\Models\Thread;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,7 +30,9 @@ class ProfileTest extends TestCase
     /** @test */
     public function profiles_display_all_threads_created_by_the_associated_user()
     {
+        $this->signIn($this->user);
         $thread = create(Thread::class, ['user_id' => $this->user->id]);
+
         $this->get('/profile/'.$this->user->name)
             ->assertSee($thread->title)
             ->assertSee($thread->body);

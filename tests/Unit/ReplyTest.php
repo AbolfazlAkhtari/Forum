@@ -25,6 +25,6 @@ class ReplyTest extends TestCase
     /** @test */
     public function it_belongs_to_a_thread()
     {
-        $this->assertInstanceOf('App\Models\Reply', $this->reply->thread);
+        $this->assertInstanceOf('App\Models\Thread', $this->reply->thread);
     }
 }

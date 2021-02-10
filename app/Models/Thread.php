@@ -23,10 +23,13 @@ class Thread extends Model
             return $builder->withCount('replies');
         });
 
-//        static::deleting(function ($thread) {
-//            $thread->replies()->delete();
-//        });
-//        a way to remove all replies while deleting the thread
+        static::deleting(function ($thread) {
+            $thread->replies->each->delete();
+        });
+        /*
+         * a way to remove all replies while deleting the thread,
+         * i used on delete cascade, but it fails for deleting the associated activity
+        */
     }
 
     public function replies()

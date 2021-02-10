@@ -12,11 +12,16 @@ trait RecordsActivity
     protected static function bootRecordsActivity()
     {
         if (auth()->guest()) return;
+
         foreach (static::getEvents() as $event) {
             static::$event(function ($model) use ($event) {
                 $model->recordActivity($event);
             });
         }
+
+        static::deleting(function ($model) {
+            $model->activity()->delete();
+        });
     }
     // when you create a static function named (boot + trait name) in a trait,
     // it's works just like the boot method for every model that is using this trait

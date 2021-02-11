@@ -9,6 +9,16 @@ use App\Models\Reply;
 
 trait favoritable
 {
+    protected static function bootfavoritable()
+    {
+        if (auth()->guest()) return;
+
+        static::deleting(function ($model) {
+            $model->favorites->each->delete();
+        });
+    }
+    // when you create a static function named (boot + trait name) in a trait,
+    // it's works just like the boot method for every model that is using this trai
 
     public function getFavoritesCountAttribute()
     {

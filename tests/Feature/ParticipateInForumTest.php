@@ -65,8 +65,8 @@ class ParticipateInForumTest extends TestCase
 
         $this->delete(route('replies.destroy', $reply))->assertRedirect(route('login'));
 
-        $user = create(User::class);
-        $this->signIn($user);
+        $this->signIn();
+        
         $this->delete(route('replies.destroy', $reply))->assertStatus(403);
     }
 

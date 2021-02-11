@@ -28,11 +28,11 @@
                 <button class="btn btn-sm btn-primary mr-1 replyEdit" data-id="{{ $reply->id }}"
                         data-text="{{ $reply->body }}">Edit
                 </button>
-                <form action="{{ route('replies.destroy', $reply) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                </form>
+{{--                <form action="{{ route('replies.destroy', $reply) }}" method="post">--}}
+{{--                    @csrf--}}
+{{--                    @method('delete')--}}
+                    <button type="submit" class="btn btn-sm btn-danger replyDelete" data-id="{{ $reply->id }}">Delete</button>
+{{--                </form>--}}
             </div>
         @endcan
     </div>

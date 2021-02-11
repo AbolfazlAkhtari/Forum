@@ -116,6 +116,14 @@ class ReplyController extends Controller
 
         $reply->delete();
 
+        if (\request()->wantsJson()) {
+            return response([
+                'status' => 'Reply Deleted!',
+            ]);
+        } else {
+            return back()->with('info', 'Reply Deleted!');
+        }
+
         return back()->with('info', 'Reply Deleted!');
     }
 }

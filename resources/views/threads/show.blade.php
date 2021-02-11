@@ -97,6 +97,24 @@
                         }, 3000);
                     });
             });
+            $('.replyDelete').on("click", function () {
+                var id = $(this).attr('data-id')
+                $.ajax({
+                    method: "delete",
+                    url: "/replies/" + id,
+                    dataType: "json"
+                })
+                    .done(function( data ) {
+                        $($('#reply-' + id).prev()).remove()
+                        $('#reply-' + id).remove()
+                        $('#AjaxAlertMessage').html(data['status'])
+                        $('#AjaxAlert').addClass('alert-info')
+                        $('#AjaxAlert').removeClass('d-none')
+                        setTimeout(function() {
+                            $('#AjaxAlert').fadeOut('slow');
+                        }, 3000);
+                    });
+            });
         });
     </script>
 @endsection

@@ -27,7 +27,7 @@ Route::delete('/threads/{thread}', [ThreadController::class, 'destroy'])->name('
 
 Route::post('/threads/{thread}/replies', [ReplyController::class, 'store'])->name('replies.store');
 Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->name('replies.destroy');
-Route::put('/replies/{reply}', [ReplyController::class, 'update'])->name('replies.update');
+Route::patch('/replies/{reply}', [ReplyController::class, 'update'])->name('replies.update');
 
 Route::post('/replies/{reply}/favorites', [FavoriteController::class, 'store'])->name('replyFavorites.store');
 

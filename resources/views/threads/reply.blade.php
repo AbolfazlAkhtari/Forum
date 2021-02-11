@@ -17,15 +17,11 @@
             {{ $reply->body }}
         </div>
         <div class="card-body d-none">
-            <form action="{{ route('replies.update', $reply) }}" method="post">
-                @csrf
-                @method('put')
                 <div class="form-group">
-                    <textarea class="form-control" name="body" rows="5">{{ $reply->body }}</textarea>
+                    <textarea class="form-control" name="body" rows="5" data-id="{{ $reply->id }}">{{ $reply->body }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-sm btn-info">Update</button>
+                <button type="submit" class="btn btn-sm btn-info replyEditConfirm">Update</button>
                 <span class="btn btn-sm btn-warning replyEditCancel">Cancel</span>
-            </form>
         </div>
         @can('update', $reply)
             <div class="card-footer level">

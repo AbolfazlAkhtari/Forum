@@ -59,8 +59,8 @@
     <script>
         $(document).ready(function () {
             setTimeout(function() {
-                $('.customAlert').fadeOut('fast');
-            }, 5000);
+                $('.customAlert').fadeOut('slow');
+            }, 3000);
         });
     </script>
     @yield('script')

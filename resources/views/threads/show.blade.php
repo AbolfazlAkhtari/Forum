@@ -60,13 +60,42 @@
 @section('script')
     <script>
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $('.replyEdit').on("click", function () {
                 $($(this).parent().siblings()[1]).addClass('d-none');
                 $($(this).parent().siblings()[2]).removeClass('d-none')
             });
             $('.replyEditCancel').on("click", function () {
-                $($($(this).parent()).parent()).addClass('d-none');
-                $($($($(this).parent()).parent()).siblings()[1]).removeClass('d-none');
+                $($(this).parent()).addClass('d-none');
+                $($($(this).parent()).siblings()[1]).removeClass('d-none');
+            });
+            $('.replyEditConfirm').on("click", function () {
+                var _this = $(this)
+                var id = $($($(this).siblings()[0]).children()[0]).attr('data-id')
+                var body = $($($(this).siblings()[0]).children()[0]).val()
+                $.ajax({
+                    method: "patch",
+                    url: "/replies/" + id,
+                    data: {
+                        body: body
+                    },
+                    dataType: "json"
+                })
+                    .done(function( data ) {
+                        $(_this.parent()).addClass('d-none')
+                        $($(_this.parent()).siblings()[1]).removeClass('d-none')
+                        $($(_this.parent()).siblings()[1]).html(data['data'])
+                        $('#AjaxAlertMessage').html(data['status'])
+                        $('#AjaxAlert').addClass('alert-success')
+                        $('#AjaxAlert').removeClass('d-none')
+                        setTimeout(function() {
+                            $('#AjaxAlert').fadeOut('slow');
+                        }, 3000);
+                    });
             });
         });
     </script>

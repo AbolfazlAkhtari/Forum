@@ -92,7 +92,14 @@ class ReplyController extends Controller
 
         $reply->update(['body' => $request->body]);
 
-        return back()->with('success', 'Reply Edited');
+        if ($request->wantsJson()) {
+            return response([
+                'status' => 'Reply Updated!',
+                'data' => $request->body
+            ]);
+        } else {
+            return back()->with('success', 'Reply Edited');
+        }
     }
 
     /**

@@ -75,7 +75,7 @@ class CreatThreadsTest extends TestCase
     }
 
     /** @test */
-    public function  authorized_users_can_delete_threads()
+    public function authorized_users_can_delete_threads()
     {
         $user = create(User::class);
         $this->signIn($user);

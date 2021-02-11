@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Activity;
 use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\User;
@@ -43,5 +44,29 @@ class ParticipateInForumTest extends TestCase
 
         $this->post(route('replies.store', $thread), $reply->toArray())
             ->assertSessionHasErrors('body');
+    }
+
+    /** @test */
+    public function  authorized_users_can_delete_replies()
+    {
+        $this->signIn();
+        $reply = create(Reply::class, ['user_id' => auth()->user()->id]);
+
+        $this->delete(route('replies.destroy', $reply));
+
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+        $this->assertEquals(0, Activity::where('subject_type', 'App\Models\Reply')->count());
+    }
+
+    /** @test */
+    public function unauthorized_users_can_not_delete_replies()
+    {
+        $reply = create(Reply::class);
+
+        $this->delete(route('replies.destroy', $reply))->assertRedirect(route('login'));
+
+        $user = create(User::class);
+        $this->signIn($user);
+        $this->delete(route('replies.destroy', $reply))->assertStatus(403);
     }
 }

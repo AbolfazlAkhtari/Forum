@@ -97,8 +97,12 @@ class ReplyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Reply $reply)
     {
-        //
+        $this->authorize('update', $reply);
+
+        $reply->delete();
+
+        return back()->with('info', 'Reply Deleted!');
     }
 }

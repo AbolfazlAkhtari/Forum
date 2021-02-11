@@ -23,6 +23,11 @@
     <style>
         .level { display: flex; align-items: center }
         .flex { flex: 1; }
+        .customAlert {
+            position: fixed !important;
+            right: 25px;
+            bottom: 25px;
+        }
     </style>
 </head>
 
@@ -45,9 +50,19 @@
 
         <main class="py-4">
             @yield('content')
+
         </main>
+        @include('layouts.messages')
     </div>
     <script src="{{ public_path('/js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function() {
+                $('.customAlert').fadeOut('fast');
+            }, 5000);
+        });
+    </script>
 </body>
 
 </html>

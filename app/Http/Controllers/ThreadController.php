@@ -67,7 +67,8 @@ class ThreadController extends Controller
             'channel_id' => $request->channel_id
         ]);
 
-        return redirect()->route('threads.show', ['channel' => $thread->channel, 'thread' => $thread]);
+        return redirect()->route('threads.show', ['channel' => $thread->channel, 'thread' => $thread])
+            ->with('success', 'Thread Published!');
     }
 
     /**
@@ -118,7 +119,7 @@ class ThreadController extends Controller
 
         $thread->delete();
 
-        return redirect()->route('threads.index');
+        return redirect()->route('threads.index')->with('info', 'Thread Deleted!');
     }
 
     /**

@@ -69,4 +69,19 @@ class ParticipateInForumTest extends TestCase
         $this->signIn($user);
         $this->delete(route('replies.destroy', $reply))->assertStatus(403);
     }
+
+    /** @test */
+    public function authorized_users_can_update_replies()
+    {
+        $this->signIn();
+        $reply = create(Reply::class, [
+            'user_id' => auth()->user()->id,
+            'body' => 'created'
+        ]);
+
+        $this->put(route('replies.update', $reply), ['body' => 'edited']);
+
+        $this->assertDatabaseHas('replies', ['body' => 'edited'])
+            ->assertDatabaseMissing('replies', ['body' => 'created']);
+    }
 }

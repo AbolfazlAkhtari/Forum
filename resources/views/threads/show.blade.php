@@ -54,4 +54,20 @@
                 </div>
             </div>
         </div>
+    </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $('.replyEdit').on("click", function () {
+                $($(this).parent().siblings()[1]).addClass('d-none');
+                $($(this).parent().siblings()[2]).removeClass('d-none')
+            });
+            $('.replyEditCancel').on("click", function () {
+                $($($(this).parent()).parent()).addClass('d-none');
+                $($($($(this).parent()).parent()).siblings()[1]).removeClass('d-none');
+            });
+        });
+    </script>
 @endsection

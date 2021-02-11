@@ -86,9 +86,13 @@ class ReplyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Reply $reply)
     {
-        //
+        $request->validate(['body' => 'required']);
+
+        $reply->update(['body' => $request->body]);
+
+        return back()->with('success', 'Reply Edited');
     }
 
     /**

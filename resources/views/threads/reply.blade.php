@@ -16,8 +16,22 @@
         <div class="card-body">
             {{ $reply->body }}
         </div>
+        <div class="card-body d-none">
+            <form action="{{ route('replies.update', $reply) }}" method="post">
+                @csrf
+                @method('put')
+                <div class="form-group">
+                    <textarea class="form-control" name="body" rows="5">{{ $reply->body }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-sm btn-info">Update</button>
+                <span class="btn btn-sm btn-warning replyEditCancel">Cancel</span>
+            </form>
+        </div>
         @can('update', $reply)
-            <div class="card-footer">
+            <div class="card-footer level">
+                <button class="btn btn-sm btn-primary mr-1 replyEdit" data-id="{{ $reply->id }}"
+                        data-text="{{ $reply->body }}">Edit
+                </button>
                 <form action="{{ route('replies.destroy', $reply) }}" method="post">
                     @csrf
                     @method('delete')

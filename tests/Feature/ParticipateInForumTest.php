@@ -79,9 +79,23 @@ class ParticipateInForumTest extends TestCase
             'body' => 'created'
         ]);
 
-        $this->put(route('replies.update', $reply), ['body' => 'edited']);
+        $this->patch(route('replies.update', $reply), ['body' => 'edited']);
 
         $this->assertDatabaseHas('replies', ['body' => 'edited'])
             ->assertDatabaseMissing('replies', ['body' => 'created']);
+    }
+
+    /** @test */
+    public function unauthorized_users_can_not_update_replies()
+    {
+        $reply = create(Reply::class, [
+            'body' => 'created'
+        ]);
+
+        $this->patch(route('replies.update', $reply), ['body' => 'edited'])->assertRedirect(route('login'));
+
+        $this->signIn();
+
+        $this->patch(route('replies.update', $reply), ['body' => 'edited'])->assertStatus(403);
     }
 }

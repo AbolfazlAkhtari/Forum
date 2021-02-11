@@ -88,6 +88,8 @@ class ReplyController extends Controller
      */
     public function update(Request $request, Reply $reply)
     {
+        $this->authorize('update', $reply);
+
         $request->validate(['body' => 'required']);
 
         $reply->update(['body' => $request->body]);

@@ -25,6 +25,6 @@ class FavoriteController extends Controller
             $reply->favorites()->create(['user_id' => auth()->user()->id]);
         }
 
-        return back();
+        return back()->with('success', 'Favorited!');
     }
 }

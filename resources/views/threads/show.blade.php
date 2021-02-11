@@ -25,7 +25,7 @@
                 </div>
                 @foreach($replies as $reply)
                     <br>
-                    <div class="card">
+                    <div class="card" id="reply-{{$reply->id}}">
                         <div class="card-header level">
                             <div class="flex">
                                 <a href="{{ route('userProfile.show', $reply->user->name) }}">

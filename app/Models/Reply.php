@@ -25,4 +25,8 @@ class Reply extends Model
         return $this->belongsTo(Thread::class);
     }
 
+    public function path()
+    {
+        return route('threads.show', [$this->thread->channel, $this->thread]) . "#reply-{$this->id}" ;
+    }
 }

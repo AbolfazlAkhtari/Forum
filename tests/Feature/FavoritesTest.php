@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Favorite;
 use App\Models\Reply;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -37,9 +38,10 @@ class FavoritesTest extends TestCase
     /** @test */
     public function an_authenticated_user_may_favorite_a_reply_only_once()
     {
-        $this->signIn(create(User::class));
+        $this->signIn();
         $this->post(route('replyFavorites.store', $this->reply->id));
+        $this->assertEquals(1, Favorite::count());
         $this->post(route('replyFavorites.store', $this->reply->id));
-        $this->assertCount(1, $this->reply->favorites);
+        $this->assertEquals(0, Favorite::count());
     }
 }

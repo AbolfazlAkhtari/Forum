@@ -41,7 +41,7 @@
 @endif
 
 {{-- non sesstion template to use in ajax requests --}}
-<div id="AjaxAlert" class="customAlert alert d-none" role="alert">
+<div id="AjaxAlert" class="customAlert alert" role="alert" style="display: none">
     <strong style="padding-right: 5px;" id="AjaxAlertMessage"></strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>

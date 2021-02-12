@@ -91,7 +91,7 @@
                         $($(_this.parent()).siblings()[1]).html(data['data'])
                         $('#AjaxAlertMessage').html(data['status'])
                         $('#AjaxAlert').addClass('alert-success')
-                        $('#AjaxAlert').removeClass('d-none')
+                        $('#AjaxAlert').fadeIn('slow');
                         setTimeout(function() {
                             $('#AjaxAlert').fadeOut('slow');
                         }, 3000);
@@ -109,7 +109,7 @@
                         $('#reply-' + id).remove()
                         $('#AjaxAlertMessage').html(data['status'])
                         $('#AjaxAlert').addClass('alert-info')
-                        $('#AjaxAlert').removeClass('d-none')
+                        $('#AjaxAlert').fadeIn('slow');
                         setTimeout(function() {
                             $('#AjaxAlert').fadeOut('slow');
                         }, 3000);

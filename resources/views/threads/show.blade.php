@@ -60,6 +60,15 @@
 @section('script')
     <script>
         $(document).ready(function () {
+            function ajaxAlert(data) {
+                $('#AjaxAlertMessage').html(data['status'])
+                $('#AjaxAlert').addClass(data['class'])
+                $('#AjaxAlert').fadeIn('slow');
+                setTimeout(function () {
+                    $('#AjaxAlert').fadeOut('slow');
+                }, 3000);
+            }
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -85,16 +94,11 @@
                     },
                     dataType: "json"
                 })
-                    .done(function( data ) {
+                    .done(function (data) {
                         $(_this.parent()).addClass('d-none')
                         $($(_this.parent()).siblings()[1]).removeClass('d-none')
                         $($(_this.parent()).siblings()[1]).html(data['data'])
-                        $('#AjaxAlertMessage').html(data['status'])
-                        $('#AjaxAlert').addClass('alert-success')
-                        $('#AjaxAlert').fadeIn('slow');
-                        setTimeout(function() {
-                            $('#AjaxAlert').fadeOut('slow');
-                        }, 3000);
+                        ajaxAlert(data)
                     });
             });
             $('.replyDelete').on("click", function () {
@@ -104,15 +108,10 @@
                     url: "/replies/" + id,
                     dataType: "json"
                 })
-                    .done(function( data ) {
+                    .done(function (data) {
                         $($('#reply-' + id).prev()).remove()
                         $('#reply-' + id).remove()
-                        $('#AjaxAlertMessage').html(data['status'])
-                        $('#AjaxAlert').addClass('alert-info')
-                        $('#AjaxAlert').fadeIn('slow');
-                        setTimeout(function() {
-                            $('#AjaxAlert').fadeOut('slow');
-                        }, 3000);
+                        ajaxAlert(data)
                     });
             });
             $('.favoriteReply').on("click", function () {
@@ -123,7 +122,7 @@
                     url: "/replies/" + id + "/favorites",
                     dataType: "json"
                 })
-                    .done(function( data ) {
+                    .done(function (data) {
                         if (data['code'] == 1) {
                             _this.removeClass('far')
                             _this.addClass('fas')
@@ -132,12 +131,7 @@
                             _this.addClass('far')
                         }
                         _this.html(data['data'])
-                        $('#AjaxAlertMessage').html(data['status'])
-                        $('#AjaxAlert').addClass('alert-info')
-                        $('#AjaxAlert').fadeIn('slow');
-                        setTimeout(function() {
-                            $('#AjaxAlert').fadeOut('slow');
-                        }, 3000);
+                        ajaxAlert(data)
                     });
             });
         });

@@ -27,7 +27,8 @@ class FavoriteController extends Controller
                 return response([
                     'code' => 1,
                     'status' => 'Reply Favorited!',
-                    'data' => $reply->favorites()->count()
+                    'data' => $reply->favorites()->count(),
+                    'class' => 'alert-info'
                 ]);
             } else {
                 return back()->with('info', 'Favorited!');
@@ -38,7 +39,8 @@ class FavoriteController extends Controller
                 return response([
                     'code' => 0,
                     'status' => 'Favorited Removed!',
-                    'data' => $reply->favorites()->count()
+                    'data' => $reply->favorites()->count(),
+                    'class' => 'alert-info'
                 ]);
             } else {
                 return back()->with('info', 'Favorited Removed!');

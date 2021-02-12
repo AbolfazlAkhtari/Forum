@@ -97,7 +97,8 @@ class ReplyController extends Controller
         if ($request->wantsJson()) {
             return response([
                 'status' => 'Reply Updated!',
-                'data' => $request->body
+                'data' => $request->body,
+                'class' => 'alert-info'
             ]);
         } else {
             return back()->with('success', 'Reply Edited');
@@ -119,6 +120,7 @@ class ReplyController extends Controller
         if (\request()->wantsJson()) {
             return response([
                 'status' => 'Reply Deleted!',
+                'class' => 'alert-info'
             ]);
         } else {
             return back()->with('info', 'Reply Deleted!');

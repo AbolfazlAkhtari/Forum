@@ -7,11 +7,12 @@
                     {{ $reply->user->name }}
                 </a> said {{ $reply->created_at->diffForHumans() }}
             </div>
-            <form action="{{ route('replyFavorites.store', $reply) }}" method="post">
-                @csrf
-                <button type="submit"
-                        class="btn btn-outline-secondary {{ $reply->isFavorited() ? 'disabled' : '' }}">{{ $reply->favorites_count }} {{ Str::plural('favorites', $reply->favorites_count) }}</button>
-            </form>
+            <i class="fa-heart text-danger favoriteReply {{ $reply->isFavorited() ? 'fas' : 'far' }}" data-id="{{ $reply->id }}"> {{ $reply->favorites_count }}</i>
+{{--            <form action="{{ route('replyFavorites.store', $reply) }}" method="post">--}}
+{{--                @csrf--}}
+{{--                <button type="submit"--}}
+{{--                        class="btn btn-outline-secondary {{ $reply->isFavorited() ? 'disabled' : '' }}">{{ $reply->favorites_count }} {{ Str::plural('favorites', $reply->favorites_count) }}</button>--}}
+{{--            </form>--}}
         </div>
         <div class="card-body">
             {{ $reply->body }}

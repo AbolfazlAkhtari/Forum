@@ -56,6 +56,7 @@
     </div>
 {{--    <script src="{{ public_path('/js/app.js') }}"></script>--}}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/e4f9007a3e.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
             setTimeout(function() {

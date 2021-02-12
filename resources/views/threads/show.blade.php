@@ -115,6 +115,31 @@
                         }, 3000);
                     });
             });
+            $('.favoriteReply').on("click", function () {
+                var id = $(this).attr('data-id')
+                var _this = $(this)
+                $.ajax({
+                    method: "post",
+                    url: "/replies/" + id + "/favorites",
+                    dataType: "json"
+                })
+                    .done(function( data ) {
+                        if (data['code'] == 1) {
+                            _this.removeClass('far')
+                            _this.addClass('fas')
+                        } else {
+                            _this.removeClass('fas')
+                            _this.addClass('far')
+                        }
+                        _this.html(data['data'])
+                        $('#AjaxAlertMessage').html(data['status'])
+                        $('#AjaxAlert').addClass('alert-info')
+                        $('#AjaxAlert').fadeIn('slow');
+                        setTimeout(function() {
+                            $('#AjaxAlert').fadeOut('slow');
+                        }, 3000);
+                    });
+            });
         });
     </script>
 @endsection

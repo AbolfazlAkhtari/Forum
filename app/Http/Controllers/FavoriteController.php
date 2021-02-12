@@ -23,8 +23,26 @@ class FavoriteController extends Controller
     {
         if (! $reply->favorites()->where('user_id', auth()->user()->id)->exists()) {
             $reply->favorites()->create(['user_id' => auth()->user()->id]);
+            if (\request()->wantsJson()) {
+                return response([
+                    'code' => 1,
+                    'status' => 'Reply Favorited!',
+                    'data' => $reply->favorites()->count()
+                ]);
+            } else {
+                return back()->with('info', 'Favorited!');
+            }
+        } else {
+            $reply->favorites()->where('user_id', auth()->user()->id)->first()->delete();
+            if (\request()->wantsJson()) {
+                return response([
+                    'code' => 0,
+                    'status' => 'Favorited Removed!',
+                    'data' => $reply->favorites()->count()
+                ]);
+            } else {
+                return back()->with('info', 'Favorited Removed!');
+            }
         }
-
-        return back()->with('success', 'Favorited!');
     }
 }

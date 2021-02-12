@@ -48,6 +48,6 @@ trait favoritable
     {
         $attributes = ['user_id' => auth()->user()->id];
 
-        return $this->favorites()->where($attributes)->delete();
+        return $this->favorites()->where($attributes)->first()->delete();
     }
 }

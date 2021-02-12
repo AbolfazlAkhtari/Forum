@@ -7,7 +7,11 @@
                     {{ $reply->user->name }}
                 </a> said {{ $reply->created_at->diffForHumans() }}
             </div>
-            <i class="fa-heart text-danger favoriteReply {{ $reply->isFavorited() ? 'fas' : 'far' }}" data-id="{{ $reply->id }}"> {{ $reply->favorites_count }}</i>
+            @auth()
+                <i class="fa-heart text-danger favoriteReply {{ $reply->isFavorited() ? 'fas' : 'far' }}" data-id="{{ $reply->id }}"> {{ $reply->favorites_count }}</i>
+            @else
+                <i class="fa-heart text-danger far"> {{ $reply->favorites_count }}</i>
+            @endauth
 {{--            <form action="{{ route('replyFavorites.store', $reply) }}" method="post">--}}
 {{--                @csrf--}}
 {{--                <button type="submit"--}}

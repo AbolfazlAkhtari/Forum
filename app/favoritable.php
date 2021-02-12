@@ -34,4 +34,20 @@ trait favoritable
     {
         return $this->morphMany(Favorite::class, 'favorited');
     }
+
+    public function favorite()
+    {
+        $attributes = ['user_id' => auth()->user()->id];
+
+        if (!$this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->create($attributes);
+        }
+    }
+
+    public function unFavorite()
+    {
+        $attributes = ['user_id' => auth()->user()->id];
+
+        return $this->favorites()->where($attributes)->delete();
+    }
 }

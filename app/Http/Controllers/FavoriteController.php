@@ -19,10 +19,10 @@ class FavoriteController extends Controller
     /**
      * @param Reply $reply
      */
-    public function store(Reply $reply)
+    public function toggle(Reply $reply)
     {
         if (! $reply->favorites()->where('user_id', auth()->user()->id)->exists()) {
-            $reply->favorites()->create(['user_id' => auth()->user()->id]);
+            $reply->favorite();
             if (\request()->wantsJson()) {
                 return response([
                     'code' => 1,
@@ -34,7 +34,7 @@ class FavoriteController extends Controller
                 return back()->with('info', 'Favorited!');
             }
         } else {
-            $reply->favorites()->where('user_id', auth()->user()->id)->first()->delete();
+            $reply->unFavorite();
             if (\request()->wantsJson()) {
                 return response([
                     'code' => 0,

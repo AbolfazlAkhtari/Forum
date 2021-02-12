@@ -29,7 +29,7 @@ Route::post('/threads/{thread}/replies', [ReplyController::class, 'store'])->nam
 Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->name('replies.destroy');
 Route::patch('/replies/{reply}', [ReplyController::class, 'update'])->name('replies.update');
 
-Route::post('/replies/{reply}/favorites', [FavoriteController::class, 'store'])->name('replyFavorites.store');
+Route::post('/replies/{reply}/favorites', [FavoriteController::class, 'toggle'])->name('replyFavorites.store');
 
 Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('userProfile.show');
 

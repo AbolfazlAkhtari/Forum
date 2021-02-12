@@ -36,7 +36,7 @@ class FavoritesTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_may_favorite_a_reply_only_once()
+    public function an_authenticated_user_may_favorite_and_un_favorite_a_reply()
     {
         $this->signIn();
         $this->post(route('replyFavorites.store', $this->reply->id));

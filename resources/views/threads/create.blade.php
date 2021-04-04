@@ -1,17 +1,15 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Create a new Thread</div>
-
                     <div class="card-body">
                         <form method="post" action="{{ route('threads.store') }}">
                             @csrf
                             <div class="form-group">
-                                <label for="channgel_id">Channel</label>
+                                <label for="channel_id">Channel</label>
                                 <select name="channel_id" id="channel_id" class="form-control">
                                     @foreach ($channels as $channel)
                                         <option value="{{ $channel->id }}">{{ $channel->name }}</option>

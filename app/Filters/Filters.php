@@ -4,7 +4,7 @@ namespace App\Filters;
 
 use Illuminate\Http\Request;
 
-abstract class Filters
+abstract class   Filters
 {
     protected $filters = [];
     protected $request;

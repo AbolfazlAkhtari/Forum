@@ -62,8 +62,9 @@
         $(document).ready(function () {
             function ajaxAlert(data) {
                 $('#AjaxAlertMessage').html(data['status'])
-                $('#AjaxAlert').addClass(data['class'])
-                $('#AjaxAlert').fadeIn('slow');
+                let ajaxAlert = $('#AjaxAlert')
+                ajaxAlert.addClass(data['class'])
+                ajaxAlert.fadeIn('slow');
                 setTimeout(function () {
                     $('#AjaxAlert').fadeOut('slow');
                 }, 3000);
@@ -83,9 +84,9 @@
                 $($($(this).parent()).siblings()[1]).removeClass('d-none');
             });
             $('.replyEditConfirm').on("click", function () {
-                var _this = $(this)
-                var id = $($($(this).siblings()[0]).children()[0]).attr('data-id')
-                var body = $($($(this).siblings()[0]).children()[0]).val()
+                let _this = $(this)
+                let id = $($($(this).siblings()[0]).children()[0]).attr('data-id')
+                let body = $($($(this).siblings()[0]).children()[0]).val()
                 $.ajax({
                     method: "patch",
                     url: "/replies/" + id,
@@ -102,21 +103,22 @@
                     });
             });
             $('.replyDelete').on("click", function () {
-                var id = $(this).attr('data-id')
+                let id = $(this).attr('data-id')
                 $.ajax({
                     method: "delete",
                     url: "/replies/" + id,
                     dataType: "json"
                 })
                     .done(function (data) {
-                        $($('#reply-' + id).prev()).remove()
-                        $('#reply-' + id).remove()
+                        let replyEl = $('#reply-' + id)
+                        $(replyEl.prev()).remove()
+                        replyEl.remove()
                         ajaxAlert(data)
                     });
             });
             $('.favoriteReply').on("click", function () {
-                var id = $(this).attr('data-id')
-                var _this = $(this)
+                let id = $(this).attr('data-id')
+                let _this = $(this)
                 $.ajax({
                     method: "post",
                     url: "/replies/" + id + "/favorites",

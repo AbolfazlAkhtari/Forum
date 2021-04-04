@@ -18,6 +18,9 @@
                 <li class="dropdown-item">
                     <a class="nav-link" href="{{ route('threads.index') }}?popular=1">Popular All Time</a>
                 </li>
+                <li class="dropdown-item">
+                    <a class="nav-link" href="{{ route('threads.index') }}?unanswered=1">Unanswered threads</a>
+                </li>
             </ul>
         </li>
         <li class="nav-item"><a class="nav-link" href="{{ route('threads.create') }}">New Thread</a>

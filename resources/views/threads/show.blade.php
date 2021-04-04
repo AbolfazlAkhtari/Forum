@@ -69,7 +69,6 @@
                     $('#AjaxAlert').fadeOut('slow');
                 }, 3000);
             }
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

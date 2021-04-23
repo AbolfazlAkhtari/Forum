@@ -18,9 +18,7 @@
         </div>
         <div class="card-body d-none">
                 <div class="form-group">
-                    <label>
-                        <textarea class="form-control" name="body" rows="5" data-id="{{ $reply->id }}">{{ $reply->body }}</textarea>
-                    </label>
+                    <textarea class="form-control" name="body" rows="5" data-id="{{ $reply->id }}">{{ $reply->body }}</textarea>
                 </div>
                 <button type="submit" class="btn btn-sm btn-info replyEditConfirm">Update</button>
                 <span class="btn btn-sm btn-warning replyEditCancel">Cancel</span>
